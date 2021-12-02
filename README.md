@@ -26,6 +26,7 @@ Dependencies below are necessary to utilize any of the scripts, especific depend
 - Python (Minimun 3.8)
 - selenium package
 - python-dotenv package
+- Chromedriver (download the same version as your chrome here https://chromedriver.chromium.org/downloads and put on the the same folder)
 
 Install Python from the https://www.python.org/ website, and the packages with the pip command:
 - pip install selenium python-dotenv
