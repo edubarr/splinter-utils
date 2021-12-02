@@ -1,4 +1,6 @@
-# Splinter Utils
+# Splinter Utils (Alpha Version! Unstable!)
+
+Warning: This project is in alpha version, just a few tests we're made, errors/bugs are expected, please report them creating a issue.
 
 Some useful scripts to automate some things on Splinterlands written mostly on Python
 
