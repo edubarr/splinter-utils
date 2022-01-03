@@ -10,14 +10,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from tqdm import tqdm
 
 print("\nSCIDU - BOT para envio de cartas em lote via PeakMonsters\n")
 
 # Carrega as contas do arquivo .env
 
-# TODO: AS VEZES O HIVESIGNER NAO VAI COM 1 CLIQUE. CORRIGIR NOME DAS CARTAS. VERIFICAR TROCAR PARA FIND_ELEMENT()
-
+# TODO: CORRIGIR NOME DAS CARTAS.
 
 def loadAccounts():
     load_dotenv()
@@ -45,14 +43,15 @@ def startBrowser():
 def main():
     acc_dict = loadAccounts()
 
-    # Iniciar Browser como driver
-
-    # Definir espera padrão
-
     # Percorre o dicionário
     for user, pw_lst in acc_dict.items():
+
+        # Iniciar Browser como driver
         driver = startBrowser()
-        wait = WebDriverWait(driver, 30)
+
+        # Definir espera padrão
+        wait = WebDriverWait(driver, 60)
+
         print(user)
         driver.get("https://peakmonsters.com/")
 
@@ -84,10 +83,8 @@ def main():
         driver.find_element(By.XPATH,
                             "//a[normalize-space()='My Cards']").click()
 
-        # wait.until(EC.visibility_of_element_located(
-        #     (By.XPATH, "//li[37]/a/div[1]/input")))
         driver.find_element(By.XPATH,
-                            "//li[38]/a/div[1]/input").click()
+                            "//li[40]/a/div[1]/input").click()
 
         time.sleep(2)
 
@@ -97,18 +94,18 @@ def main():
             print("Account doens't seem to have any cards owned!")
             driver.close()
             
-            print("Waiting 3 minutes to avoid Peakmonsters Ban!")
-            time.sleep(200)
+            print("Waiting 1 minute to avoid Peakmonsters Ban!")
+            time.sleep(60)
             continue
 
         for i in range(cards_rows):
             card = driver.find_element(By.XPATH,
-                                       "//tbody/tr[" + str(i + 1) + "]/td[2]/div/div")
+                                       "//tbody/tr[" + str(i + 1) + "]/td[3]/div/div")
 
             card_name = card.text.split()[:2]
 
             card_frame = driver.find_element(By.XPATH,
-                                             "//tbody/tr[" + str(i + 1) + "]/td[2]/div/a/div")
+                                             "//tbody/tr[" + str(i + 1) + "]/td[3]/div/a/div")
 
             classes = card_frame.get_attribute('class')
 
@@ -183,13 +180,13 @@ def main():
         driver.find_element(By.XPATH,
                             "//button[normalize-space()='Approve']").click()
 
-        print("Waiting 3 minutes to avoid Peakmonsters Ban!")
+        print("Waiting 1 minute to avoid Peakmonsters Ban!")
 
         time.sleep(10)
 
         driver.close()
 
-        time.sleep(200)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
