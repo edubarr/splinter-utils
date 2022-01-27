@@ -25,6 +25,7 @@ def loadAccounts():
     pwlst = list(zip(postinglst, activelst))
     print(str(len(userlst)) + " accounts loaded!\n")
     print(userlst)
+    print('\n')
     return dict(zip(userlst, pwlst))
 
 # Inicia o Browser
@@ -37,7 +38,7 @@ def startBrowser():
     options.add_argument("start-maximized")
     options.add_argument("disable-infobars")
     options.add_argument("--disable-extensions")
-    return webdriver.Chrome(options=options, service=chrome_service)
+    return webdriver.Chrome(options=options, executable_path='chromedriver.exe')
 
 
 def main():
@@ -76,7 +77,7 @@ def main():
         elm_pw.clear()
         elm_pw.send_keys(pw_lst[0])
 
-        driver.find_element(By.XPATH, "//img[@alt='Login']").click()
+        driver.find_element(By.XPATH, "//tr[4]//td[2]//button[1]").click()
 
         wait.until(EC.element_to_be_clickable(
             (By.XPATH, "//a[normalize-space()='My Cards']")))
@@ -84,7 +85,7 @@ def main():
                             "//a[normalize-space()='My Cards']").click()
 
         driver.find_element(By.XPATH,
-                            "//li[40]/a/div[1]/input").click()
+                            "//li[41]/a/div[1]/input").click()
 
         time.sleep(2)
 
@@ -94,8 +95,8 @@ def main():
             print("Account doens't seem to have any cards owned!")
             driver.close()
             
-            print("Waiting 1 minute to avoid Peakmonsters Ban!")
-            time.sleep(60)
+            print("Waiting 1/2 minute to avoid Peakmonsters Ban!\n")
+            time.sleep(30)
             continue
 
         for i in range(cards_rows):
@@ -180,13 +181,13 @@ def main():
         driver.find_element(By.XPATH,
                             "//button[normalize-space()='Approve']").click()
 
-        print("Waiting 1 minute to avoid Peakmonsters Ban!")
+        print("Waiting 1/2 minute to avoid Peakmonsters Ban!\n")
 
-        time.sleep(10)
+        time.sleep(20)
 
         driver.close()
 
-        time.sleep(60)
+        time.sleep(20)
 
 
 if __name__ == "__main__":
